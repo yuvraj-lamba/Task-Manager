@@ -34,8 +34,4 @@ Real-time date, time, and day display
 
 Open index.html in a browser.
 
-Manage tasks, change themes, and enjoy dynamic quotes!
-
-All tasks are saved in localStorage.
-
-Enjoy your task management! 🎉
+Manage tasks, change themes
