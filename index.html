@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="theme-beach">
+  <div class="theme-selector">
+    <div class="theme-header">
+      <i class="fas fa-palette theme-icon"></i>
+      <span class="theme-title">THEMES</span>
+    </div>
+    <div class="theme-options">
+      <button class="theme-btn" data-theme="mountains">Mountains</button>
+      <button class="theme-btn" data-theme="sea">Sea</button>
+      <button class="theme-btn active" data-theme="beach">Beach</button>
+      <button class="theme-btn" data-theme="nature">Nature</button>
+      <button class="theme-btn" data-theme="nightlife">Nightlife</button>
+    </div>
+  </div>
+
+  <div class="date-time-container">
+    <div class="date-time">
+      <div id="day" class="big-day">Monday</div>
+      <div id="time">12:00:00 PM</div>
+      <div id="date">January 1, 2023</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="quote" class="quote">"Focus on your day, one task at a time."</div>
+    <h1>Task Manager</h1>
+    
+    <form id="task-form">
+      <input type="text" id="task-name" placeholder="Task Name" required>
+      <textarea id="task-description" placeholder="Task Description"></textarea>
+      
+      <div class="form-row">
+        <div class="due-date-selection">
+          <h3>Due Date</h3>
+          <input type="datetime-local" id="task-due-date">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="importance-selection">
+          <h3>Criticality</h3>
+          <div class="radio-group">
+            <label><input type="radio" name="importance" value="high" checked> <span class="high-text">High</span></label>
+            <label><input type="radio" name="importance" value="medium"> <span class="medium-text">Medium</span></label>
+            <label><input type="radio" name="importance" value="low"> <span class="low-text">Low</span></label>
+          </div>
+        </div>
+        
+        <div class="profile-selection">
+          <h3>Profile</h3>
+          <div class="radio-group">
+            <label><input type="radio" name="profile" value="work" checked> <span class="work-text">Work</span></label>
+            <label><input type="radio" name="profile" value="personal"> <span class="personal-text">Personal</span></label>
+            <label><input type="radio" name="profile" value="study"> <span class="study-text">Study</span></label>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="add-task-btn">Add Task</button>
+    </form>
+    
+    <div class="filters-container">
+      <div class="status-filter">
+        <h2>Status</h2>
+        <div class="filter-buttons">
+          <button class="filter-btn status-btn all-tasks active" data-status="all">All Tasks</button>
+          <button class="filter-btn status-btn completed" data-status="completed">Completed</button>
+          <button class="filter-btn status-btn pending" data-status="pending">Pending</button>
+        </div>
+      </div>
+      
+      <div class="profile-filter">
+        <h2>Profiles</h2>
+        <div class="filter-buttons">
+          <button class="filter-btn profile-btn active" data-profile="all">All</button>
+          <button class="filter-btn profile-btn work" data-profile="work">Work</button>
+          <button class="filter-btn profile-btn personal" data-profile="personal">Personal</button>
+          <button class="filter-btn profile-btn study" data-profile="study">Study</button>
+        </div>
+      </div>
+      
+      <div class="criticality-filter">
+        <h2>Criticality</h2>
+        <div class="filter-buttons">
+          <button class="filter-btn criticality-btn active" data-criticality="all">All</button>
+          <button class="filter-btn criticality-btn high" data-criticality="high">High</button>
+          <button class="filter-btn criticality-btn medium" data-criticality="medium">Medium</button>
+          <button class="filter-btn criticality-btn low" data-criticality="low">Low</button>
+        </div>
+      </div>
+
+      <div class="sort-filter">
+        <h2>Sort By</h2>
+        <div class="filter-buttons">
+          <button class="filter-btn sort-btn" data-sort="creation">Creation Date</button>
+          <button class="filter-btn sort-btn" data-sort="due">Due Date</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="task-list"></div>
+    <div id="no-tasks-message">No tasks found!</div>
+  </div>
+
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Edit Task</h2>
+      <form id="edit-form">
+        <input type="text" id="edit-name" placeholder="Task Name" required>
+        <textarea id="edit-description" placeholder="Task Description"></textarea>
+        
+        <div class="form-row">
+          <div class="due-date-selection">
+            <h3>Due Date</h3>
+            <input type="datetime-local" id="edit-due-date">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="importance-selection">
+            <h3>Criticality</h3>
+            <div class="radio-group">
+              <label><input type="radio" name="edit-importance" value="high"> <span class="high-text">High</span></label>
+              <label><input type="radio" name="edit-importance" value="medium"> <span class="medium-text">Medium</span></label>
+              <label><input type="radio" name="edit-importance" value="low"> <span class="low-text">Low</span></label>
+            </div>
+          </div>
+          
+          <div class="profile-selection">
+            <h3>Profile</h3>
+            <div class="radio-group">
+              <label><input type="radio" name="edit-profile" value="work"> <span class="work-text">Work</span></label>
+              <label><input type="radio" name="edit-profile" value="personal"> <span class="personal-text">Personal</span></label>
+              <label><input type="radio" name="edit-profile" value="study"> <span class="study-text">Study</span></label>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
